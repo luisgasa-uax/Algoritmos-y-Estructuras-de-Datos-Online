@@ -4,7 +4,7 @@ Una cola es una estructura de datos que sigue el principio **FIFO** (First In, F
 
 Imagina una fila de personas esperando en la taquilla de un cine: la primera persona que llega es la primera en ser atendida y así sucesivamente. Las colas en programación siguen el mismo principio.
 
-![cola 2.png](T%201%203%20Colas%20(Queues)%20d23a5b5b148b413e9eca030e9f087ccb/cola_2.png)
+![cola 2.png](./T_1_3_Colas_(Queues)/cola_2.png)
 
 ## 1.4.1. **Operaciones básicas**
 
@@ -72,7 +72,7 @@ class Cola:
 
 Añade un elemento al final de la cola. Si la cola está vacía, el nuevo nodo se convierte tanto en el frente como en el final. Si no está vacía, se ajusta el puntero `siguiente` del último nodo para que apunte al nuevo nodo y luego se mueve el puntero `final` para que señale al nuevo nodo.
 
-![cola_-_queue.png](T%201%203%20Colas%20(Queues)%20d23a5b5b148b413e9eca030e9f087ccb/cola_-_queue.png)
+![cola_-_queue.png](./T_1_3_Colas_(Queues)//cola_-_queue.png)
 
 ```python
 def enqueue(self, valor: object):
@@ -95,7 +95,7 @@ def enqueue(self, valor: object):
 
 Elimina y devuelve el primer elemento de la cola (el frente). Si la cola se queda vacía después de la operación, se asegura de que tanto el frente como el final apunten a `None`.
 
-![cola_-_dequeue.png](T%201%203%20Colas%20(Queues)%20d23a5b5b148b413e9eca030e9f087ccb/cola_-_dequeue.png)
+![cola_-_dequeue.png](./T_1_3_Colas_(Queues)//cola_-_dequeue.png)
 
 ```python
 def dequeue(self):
@@ -162,6 +162,9 @@ def size(self) -> int:
 		"""
 		return self.tamanio
 ```
+
+---
+
 
 ## 1.4.5. Ejercicio de consolidación
 
