@@ -5,8 +5,6 @@
 import sys
 import os
 import time
-
-
 import time
 
 class Cronometro:
@@ -59,10 +57,10 @@ class SuppressPrint:
     dentro de un bloque de código. Redirige sys.stdout a /dev/null,
     y luego lo restaura a su valor original al salir del bloque.
     
-    Ejemplo de uso:
-    
-    with SuppressPrint():
-        print("Esto no se imprimirá en la consola")
+        Ejemplo de uso:
+        
+        with SuppressPrint():
+            print("Esto no se imprimirá en la consola")
     
     Después del bloque with, la salida a la consola se comportará normalmente.
     """

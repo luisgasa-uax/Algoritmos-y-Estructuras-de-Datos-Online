@@ -10,3 +10,8 @@
 
 ## Ejemplos
 - [Película ](./docs/Pelicula.html)
+
+
+
+## Documentación
+Documentación generada con https://pdoc.dev/
