@@ -78,3 +78,75 @@ class MinHeap:
         if len(self.heap):
             return True
         return False 
+
+def find_value(self, value: Any) -> int:
+        '''
+        Busca un valor en el montículo y devuelve su índice.
+        :param value: Valor a buscar.
+        :return: Índice del valor en el montículo, o -1 si no se encuentra.
+        '''
+        for index, nodo in enumerate(self.heap):
+            if value == nodo.value:
+                return index
+        return -1
+
+    def delete_node(self, value: Any) -> None:
+        '''
+        Elimina un nodo con un valor específico del montículo.
+        :param value: Valor del nodo a eliminar.
+        '''
+        index = self.find_value(value)
+        if index < 0:
+            print('Valor no encontrado')
+            return
+
+        # Intercambia con el último nodo y lo elimina
+        self.heap[index], self.heap[-1] = self.heap[-1], self.heap[index]
+        self.pop()
+
+        # Reajusta el montículo
+        for i in range((self.size() // 2) - 1, -1, -1):
+            self._sink_down(i)
+    
+    def increase_value(self, index: int, new_value: Any) -> None:
+        '''
+        Aumenta el valor de un nodo en el montículo.
+        :param index: Índice del nodo a aumentar.
+        :param new_value: Nuevo valor del nodo.
+        '''
+        if new_value < self.heap[index].value:
+            raise ValueError("El nuevo valor es menor que el actual")
+        self.heap[index].value = new_value
+        self._bubble_up(index)
+    
+    def decrease_value(self, index: int, new_value: Any) -> None:
+        '''
+        Disminuye el valor de un nodo en el montículo.
+        :param index: Índice del nodo a disminuir.
+        :param new_value: Nuevo valor del nodo.
+        '''
+        if new_value > self.heap[index].value:
+            raise ValueError("El nuevo valor es mayor que el actual")
+        self.heap[index].value = new_value
+        self._sink_down(index)
+
+    def build_heap(self, lista: list) -> None:
+        '''
+        Construye un montículo a partir de una lista dada.
+        :param lista: Lista de valores para construir el montículo.
+        '''
+        self.heap = [Nodo(item) for item in lista]
+        for i in range((len(self.heap) // 2) - 1, -1, -1):
+            self._sink_down(i)
+
+    def merge_heaps(self, list1: list, list2: list) -> None:
+        '''
+        Combina dos montículos en uno.
+        :param list1: Primer montículo (o lista) a combinar.
+        :param list2: Segundo montículo (o lista) a combinar.
+        '''
+        if list1 is None:
+            list1 = self.heap
+        new_list = list1 + list2
+        self.build_heap(new_list)
+
