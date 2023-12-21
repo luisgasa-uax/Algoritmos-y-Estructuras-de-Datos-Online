@@ -1,92 +1,129 @@
+from typing import Any
 from Nodo import Nodo 
 
-'''
-Montículo mínimo: todo nodo es menor que sus hijos
-'''
 class MinHeap:
+    '''
+    Clase MinHeap para representar un montículo mínimo.
+    En un montículo mínimo, cada nodo es menor que sus hijos.
+    '''
+
     def __init__(self) -> None:
+        # Inicializa el montículo como una lista vacía
         self.heap = []
 
     def _sink_down(self, index: int) -> None:
+        '''
+        Realiza la operación de hundimiento (sink down) para mantener la propiedad del montículo mínimo.
+        Mueve un nodo hacia abajo en el montículo hasta que se restablecen las propiedades del montículo mínimo.
+        :param index: Índice del nodo que se está hundiendo.
+        '''
         menor = index
         izqda = self._left_child(index)
         dcha = self._right_child(index)
 
+        # Comparar con hijo izquierdo
         if izqda < len(self.heap) and self.heap[izqda] < self.heap[menor]:
             menor = izqda
+
+        # Comparar con hijo derecho
         if dcha < len(self.heap) and self.heap[dcha] < self.heap[menor]:
             menor = dcha
         
         if menor != index:
-            self.heap[menor], self.heap[index] = self.heap[index], self.heap[menor]  
+            self.heap[menor], self.heap[index] = self.heap[index], self.heap[menor]
             self._sink_down(menor)
     
-    def _bubble_up(self, index : int ):
+    def _bubble_up(self, index: int):
+        '''
+        Realiza la operación de flotación (bubble up) para mantener la propiedad del montículo mínimo.
+        Mueve un nodo hacia arriba en el montículo hasta que se restablecen las propiedades del montículo mínimo.
+        :param index: Índice del nodo que se está flotando.
+        '''
         padre = self._parent(index)
-        while( padre > 0 and self.heap[padre] > self.heap[index] ):
+        while padre > 0 and self.heap[padre] > self.heap[index]:
             self.heap[padre], self.heap[index] = self.heap[index], self.heap[padre]
             index = padre
             padre = self._parent(index)
 
-    # Los métodos push, pop, peek se mantienen igual que en el MaxHeap
-                
     def _parent(self, index: int) -> int:
-        # Su padre está en el índice (i-1) // 2 (división entera)
-        # devuelve el índice del padre
+        '''
+        Devuelve el índice del padre de un nodo dado.
+        :param index: Índice del nodo hijo.
+        :return: Índice del nodo padre.
+        '''
         return (index - 1) // 2
-   
+
     def _left_child(self, index: int):
-        # Devuelve el índice del hijo izquierdo de i
+        '''
+        Devuelve el índice del hijo izquierdo del nodo dado.
+        :param index: Índice del nodo padre.
+        :return: Índice del hijo izquierdo.
+        '''
         return 2 * index + 1
-    
+
     def _right_child(self, index: int):
-        # Devuelve el índice del hermano derecho de i
-        return 2 * index + 2       
-    
-    # Insertamos nuevo nodo    
-    def push(self, val:Nodo) -> None:
+        '''
+        Devuelve el índice del hijo derecho del nodo dado.
+        :param index: Índice del nodo padre.
+        :return: Índice del hijo derecho.
+        '''
+        return 2 * index + 2
+
+    def push(self, val: Any) -> None:
+        '''
+        Inserta un nuevo valor en el montículo.
+        :param val: Valor a insertar.
+        '''
         nuevoNodo = Nodo(val)
         self.heap.append(nuevoNodo)
         self._bubble_up(len(self.heap) - 1)
 
-    # Consultamos el valor del nodo raiz
-    def peek(self, val: Nodo) -> Nodo:
-        if len(self.heap) == 0 :
-            # No hay nodos
+    def peek(self) -> Nodo:
+        '''
+        Devuelve el valor del nodo raíz sin eliminarlo.
+        :return: Nodo raíz del montículo.
+        '''
+        if self.is_empty():
             return None
-        # Devolvemos el nodo raiz, SIN eliminarlo
         return self.heap[0]
 
-    # Extraemos el nodo raiz
-    def pop(self): 
-        if len(self.heap) == 0 :
-            # No hay nodos en el montículo
+    def pop(self):
+        '''
+        Elimina y devuelve el nodo raíz del montículo.
+        Reemplaza el nodo raíz con el último nodo y realiza un sink down para mantener las propiedades del montículo.
+        :return: Nodo raíz eliminado.
+        '''
+        if self.is_empty():
             return None
         if len(self.heap) == 1:
-            # Solo queda un nodo en el montículo
             return self.heap.pop()
         raiz = self.heap[0]
         self.heap[0] = self.heap.pop()
-        # hundimiento
         self._sink_down(0)
         return raiz
 
     def size(self) -> int:
+        '''
+        Devuelve el número de elementos en el montículo.
+        :return: Tamaño del montículo.
+        '''
         return len(self.heap)
 
     def is_empty(self) -> bool:
-        if len(self.heap):
-            return True
-        return False 
+        '''
+        Verifica si el montículo está vacío.
+        :return: True si el montículo está vacío, False en caso contrario.
+        '''
+        return len(self.heap) == 0
 
-def find_value(self, value: Any) -> int:
+    def find_value(self, value: Any) -> int:
         '''
         Busca un valor en el montículo y devuelve su índice.
         :param value: Valor a buscar.
         :return: Índice del valor en el montículo, o -1 si no se encuentra.
         '''
         for index, nodo in enumerate(self.heap):
-            if value == nodo.value:
+            if value == nodo.valor:
                 return index
         return -1
 
@@ -107,27 +144,27 @@ def find_value(self, value: Any) -> int:
         # Reajusta el montículo
         for i in range((self.size() // 2) - 1, -1, -1):
             self._sink_down(i)
-    
+
     def increase_value(self, index: int, new_value: Any) -> None:
         '''
         Aumenta el valor de un nodo en el montículo.
         :param index: Índice del nodo a aumentar.
         :param new_value: Nuevo valor del nodo.
         '''
-        if new_value < self.heap[index].value:
+        if new_value < self.heap[index].valor:
             raise ValueError("El nuevo valor es menor que el actual")
-        self.heap[index].value = new_value
+        self.heap[index].valor = new_value
         self._bubble_up(index)
-    
+
     def decrease_value(self, index: int, new_value: Any) -> None:
         '''
         Disminuye el valor de un nodo en el montículo.
         :param index: Índice del nodo a disminuir.
         :param new_value: Nuevo valor del nodo.
         '''
-        if new_value > self.heap[index].value:
+        if new_value > self.heap[index].valor:
             raise ValueError("El nuevo valor es mayor que el actual")
-        self.heap[index].value = new_value
+        self.heap[index].valor = new_value
         self._sink_down(index)
 
     def build_heap(self, lista: list) -> None:
@@ -149,4 +186,3 @@ def find_value(self, value: Any) -> int:
             list1 = self.heap
         new_list = list1 + list2
         self.build_heap(new_list)
-
