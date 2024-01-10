@@ -134,3 +134,10 @@ class Heap:
         :return: True si el montículo está vacío, False en caso contrario.
         '''
         return len(self.heap) == 0
+
+    def __str__(self):
+        '''
+        Devuelve una representación string del objeto Montículo.
+        :return: Representación string del objeto Montículo.
+        '''
+        return str(list(self.heap))

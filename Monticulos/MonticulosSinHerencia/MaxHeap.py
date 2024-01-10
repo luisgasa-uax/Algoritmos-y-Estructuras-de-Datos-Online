@@ -1,5 +1,5 @@
 from typing import Any
-from Nodo import Nodo
+from Monticulos.MonticulosSinHerencia.Nodo import Nodo
 
 class MaxHeap:
     '''

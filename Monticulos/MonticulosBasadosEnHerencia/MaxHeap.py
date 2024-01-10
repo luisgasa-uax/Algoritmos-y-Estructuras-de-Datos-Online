@@ -1,3 +1,4 @@
+from Heap import Heap
 class MaxHeap(Heap):
     '''
     Clase MaxHeap para implementar un montículo máximo, donde cada nodo padre es mayor que sus hijos.
@@ -9,4 +10,5 @@ class MaxHeap(Heap):
         Inicializa un montículo máximo.
         Utiliza una función de comparación donde los padres son mayores que sus hijos.
         '''
-        super().__init__(lambda parent, child: parent < child)
+        super().__init__(lambda parent, child: parent.valor < child.valor)
+

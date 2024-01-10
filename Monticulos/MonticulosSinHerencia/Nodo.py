@@ -17,3 +17,11 @@ class Nodo:
         self.valor = valor           # Almacena el valor del nodo
         self.hijo_izquierda = None   # Inicialmente no tiene hijo izquierdo
         self.hijo_derecha = None     # Inicialmente no tiene hijo derecho
+
+    def __str__(self):
+        '''
+        Representación en cadena del empleado, mostrando su número identificador.
+
+        :return: Representación en cadena del número identificador del empleado.
+        '''
+        return self.valor.str()
